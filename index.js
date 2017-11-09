@@ -74,19 +74,21 @@ rp(options)
   .then(function (repos) {
       console.log(repos.results[0].formatted_address);
       phrase=repos.results[0].formatted_address
-  })
+      var webhookReply = 'Hello ' + userName + '! Welcome from the webhook.' +phrase;
+      res.status(200).json({
+        source: 'webhook',
+        speech: webhookReply,
+        displayText: webhookReply
+      })
+    })
   .catch(function (err) {
       // API call failed...
   });
 
-  var webhookReply = 'Hello ' + userName + '! Welcome from the webhook.' +phrase;
+  
 
   // the most basic response
-  res.status(200).json({
-    source: 'webhook',
-    speech: webhookReply,
-    displayText: webhookReply
-  })
+  
 })
 
 app.listen(app.get('port'), function () {
