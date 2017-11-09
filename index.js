@@ -41,39 +41,17 @@ app.post('/webhook', function (req, res) {
   var userName = req.body.result.parameters['given-name']
 
   let phrase = "hi";
-  /*
-  let url =
-  "https://maps.googleapis.com/maps/api/geocode/json?address=Florence";
-request.get(url, (error, response, body) => {
-  
-});
-*/
-/*
-const url =
-"https://maps.googleapis.com/maps/api/geocode/json?address=Florence";
-https.get(url, res => {
-res.setEncoding("utf8");
-let body = "";
-res.on("data", data => {
-  body += data;
-});
-res.on("end", () => {
-  body = JSON.parse(body);
-  phrase = body.results[0].formatted_address;  
-});
-});
-*/
 
 var options = {
-  uri: 'https://maps.googleapis.com/maps/api/geocode/json?address=Florence',
+  uri: 'https://dog.ceo/api/breeds/list/all',
   
   json: true // Automatically parses the JSON string in the response
 };
 
 rp(options)
   .then(function (repos) {
-      console.log(repos.results[0].formatted_address);
-      phrase=repos.results[0].formatted_address
+    console.log(repos.status);
+    phrase=repos.status;
       var webhookReply = 'Hello ' + userName + '! Welcome from the webhook.' +phrase;
       res.status(200).json({
         source: 'webhook',
