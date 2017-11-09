@@ -57,7 +57,7 @@ res.on("data", data => {
 });
 res.on("end", () => {
   body = JSON.parse(body);
-  phrase = json.results[0].formatted_address;  
+  phrase = body.results[0].formatted_address;  
 });
 });
 
