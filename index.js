@@ -38,6 +38,7 @@ app.post('/webhook', function (req, res) {
   // parameters are stored in req.body.result.parameters
   var userName = req.body.result.parameters['given-name']
 
+  /*
   let url =
   "https://maps.googleapis.com/maps/api/geocode/json?address=Florence";
 request.get(url, (error, response, body) => {
@@ -47,8 +48,8 @@ request.get(url, (error, response, body) => {
     
   
 });
-
-  var webhookReply = 'Hello ' + userName + '! Welcome from the webhook.' +phrase;
+*/
+  var webhookReply = 'Hello ' + userName + '! Welcome from the webhook.'// +phrase;
 
   // the most basic response
   res.status(200).json({
