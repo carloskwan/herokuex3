@@ -21,6 +21,14 @@ app.post('/webhook', function (req, res) {
   // we expect to receive JSON data from api.ai here.
   // the payload is stored on req.body
   console.log(req.body)
+  // An action is a string used to identify what needs to be done in fulfillment
+  let action = request.body.result.action; // https://dialogflow.com/docs/actions-and-parameters
+
+  // Parameters are any entites that Dialogflow has extracted from the request.
+  const parameters = request.body.result.parameters; // https://dialogflow.com/docs/actions-and-parameters
+
+  // Contexts are objects used to track and store conversation state
+  const inputContexts = request.body.result.contexts; // https://dialogflow.com/docs/contexts
 
   // we have a simple authentication
   if (REQUIRE_AUTH) {
@@ -37,36 +45,67 @@ app.post('/webhook', function (req, res) {
   // the value of Action from api.ai is stored in req.body.result.action
   console.log('* Received action -- %s', req.body.result.action)
 
-  // parameters are stored in req.body.result.parameters
-  var userName = req.body.result.parameters['given-name']
+  let webhookReply = "empty reply";
+  const actionHandlers = {
+    // The default welcome intent has been matched, welcome the user (https://dialogflow.com/docs/events#default_welcome_intent)
 
-  let phrase = "hi";
-
-var options = {
-  uri: 'https://dog.ceo/api/breeds/list/all',
-  
-  json: true // Automatically parses the JSON string in the response
-};
-
-rp(options)
-  .then(function (repos) {
-    console.log(repos.status);
-    phrase=repos.status;
-      var webhookReply = 'Hello ' + userName + '! Welcome from the webhook.' +phrase;
+    'input.welcome': () => {
+      webhookReply = "Welcome from Heroku"
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
         displayText: webhookReply
       })
-    })
-  .catch(function (err) {
-      // API call failed...
-  });
+    },
+    // The default fallback intent has been matched, try to recover (https://dialogflow.com/docs/intents#fallback_intents)
+    'input.unknown': () => {
 
-  
+    },
+    'createAccount': () => {
 
-  // the most basic response
-  
+    },
+    // Default handler for unknown or undefined actions
+    'default': () => {
+      webhookReply = "This is a default response"
+      res.status(200).json({
+        source: 'webhook',
+        speech: webhookReply,
+        displayText: webhookReply
+      })
+    },
+    // Default handler for unknown or undefined actions
+    'sayName': () => {
+      var userName = parameters['given-name']
+      let phrase = "hi";
+      var options = {
+        uri: 'https://dog.ceo/api/breeds/list/all',
+        json: true // Automatically parses the JSON string in the response
+      };
+      rp(options)
+        .then(function (repos) {
+          console.log(repos.status);
+          phrase = 'This comes from an external API: '+ repos.status;
+          webhookReply = phrase;
+          res.status(200).json({
+            source: 'webhook',
+            speech: webhookReply,
+            displayText: webhookReply
+          })
+        })
+        .catch(function (err) {
+          // API call failed...
+        });
+    }
+  };
+
+  // If undefined or unknown action use the default handler
+  if (!actionHandlers[action]) {
+    action = 'default';
+  }
+
+  // Run the proper handler function to handle the request from Dialogflow
+  actionHandlers[action]();
+
 })
 
 app.listen(app.get('port'), function () {
