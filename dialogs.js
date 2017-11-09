@@ -56,7 +56,7 @@ module.exports= {
                 name: "SEND_USER_DATA_IN_OUT_REQUEST",
                 userDataInOutRequestDirective: {
                     displayPopUp: {
-                        message: DICTIONARY.URI.SEND_USER_MOBILE_NUMBER
+                        message: "temporary msg"
                     },
                     userStateName: "User Mobile Number Received",
                     requestSource: "HOPE_SCREEN_BASED_CONVERSATION",
