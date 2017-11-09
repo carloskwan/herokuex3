@@ -7,6 +7,8 @@ const rp = require('request-promise');
 app.use(bodyParser.json())
 app.set('port', (process.env.PORT || 5000))
 
+const dialogs= require('./dialogs')
+
 const REQUIRE_AUTH = true
 const AUTH_TOKEN = 'an-example-token'
 
@@ -73,7 +75,6 @@ app.post('/webhook', function (req, res) {
         displayText: webhookReply
       })
     },
-    // Default handler for unknown or undefined actions
     'sayName': () => {
       var userName = parameters['given-name']
       let phrase = "hi";
@@ -95,6 +96,15 @@ app.post('/webhook', function (req, res) {
         .catch(function (err) {
           // API call failed...
         });
+    },
+    'registerUser': () => {
+      
+      webhookReply = dialogs.dialogs.messages[0].message;//dialogs.messages[0].message;
+      res.status(200).json({
+        source: 'webhook',
+        speech: webhookReply,
+        displayText: webhookReply
+      })
     }
   };
 
