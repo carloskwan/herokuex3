@@ -14,19 +14,6 @@ const AUTH_TOKEN = 'an-example-token'
 
 let dialogObject;
 
-var options = {
-  uri: 'http://172.16.1.146:8585/v1/userRegistration'//,
-  //json: true // Automatically parses the JSON string in the response
-};
-rp(options)
-  .then(function (object) {
-    console.log("call to neuhope server");
-    dialogObject=object;
-  })
-  .catch(function (err) {
-    // API call failed...
-  });
-
 
 app.get('/', function (req, res) {
   res.send('Use the /webhook endpoint.')
@@ -70,12 +57,26 @@ app.post('/webhook', function (req, res) {
     // The default welcome intent has been matched, welcome the user (https://dialogflow.com/docs/events#default_welcome_intent)
 
     'input.welcome': () => {
-      webhookReply = "Welcome from Heroku"
-      res.status(200).json({
-        source: 'webhook',
-        speech: webhookReply,
-        displayText: webhookReply
-      })
+      var options = {
+        uri: 'http://172.16.1.146:8585/v1/userRegistration'//,
+        //json: true // Automatically parses the JSON string in the response
+      };
+      rp(options)
+        .then(function (object) {
+          console.log("call to neuhope server");
+          dialogObject=object;
+          webhookReply = "Welcome from Heroku"
+          res.status(200).json({
+            source: 'webhook',
+            speech: webhookReply,
+            displayText: webhookReply
+          })
+        })
+        .catch(function (err) {
+          // API call failed...
+        });
+
+      
     },
     // The default fallback intent has been matched, try to recover (https://dialogflow.com/docs/intents#fallback_intents)
     'input.unknown': () => {
