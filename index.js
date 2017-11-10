@@ -12,6 +12,22 @@ const dialogs= require('./dialogs')
 const REQUIRE_AUTH = true
 const AUTH_TOKEN = 'an-example-token'
 
+let dialogObject;
+
+var options = {
+  uri: 'http://172.16.1.146:8585/v1/userRegistration'//,
+  //json: true // Automatically parses the JSON string in the response
+};
+rp(options)
+  .then(function (object) {
+    console.log("call to neuhope server");
+    dialogObject=object;
+  })
+  .catch(function (err) {
+    // API call failed...
+  });
+
+
 app.get('/', function (req, res) {
   res.send('Use the /webhook endpoint.')
 })
@@ -19,10 +35,12 @@ app.get('/webhook', function (req, res) {
   res.send('You must POST your request')
 })
 
+
+
 app.post('/webhook', function (req, res) {
   // we expect to receive JSON data from api.ai here.
   // the payload is stored on req.body
-  console.log(req.body)
+  //console.log(req.body)
   // An action is a string used to identify what needs to be done in fulfillment
   let action = req.body.result.action; // https://dialogflow.com/docs/actions-and-parameters
 
@@ -99,7 +117,7 @@ app.post('/webhook', function (req, res) {
     },
     'registerUser': () => {
       
-      webhookReply = dialogs.dialogs.messages[0].message;//dialogs.messages[0].message;
+      webhookReply = dialogObject.dialogs.messages[0].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
