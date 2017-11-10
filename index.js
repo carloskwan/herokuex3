@@ -58,7 +58,10 @@ app.post('/webhook', function (req, res) {
 
     'input.welcome': () => {
       var options = {
-        uri: 'http://172.16.1.146:8585/v1/userRegistration'//,
+        uri: 'http://172.16.1.146:8585/v1/userRegistration',
+        headers: {
+          'Accept': 'application/json'
+      }
         //json: true // Automatically parses the JSON string in the response
       };
       rp(options)
