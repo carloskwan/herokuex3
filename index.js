@@ -130,6 +130,24 @@ app.post('/webhook', function (req, res) {
         speech: webhookReply,
         displayText: webhookReply
       })
+    },
+    'userType': () => {
+      
+      webhookReply = dialogObject.dialogs.messages[1].message;//dialogs.messages[0].message;
+      res.status(200).json({
+        source: 'webhook',
+        speech: webhookReply,
+        displayText: webhookReply
+      })
+    },
+    'phoneNumber': () => {
+      
+      webhookReply = dialogObject.dialogs.messages[2].message;//dialogs.messages[0].message;
+      res.status(200).json({
+        source: 'webhook',
+        speech: webhookReply,
+        displayText: webhookReply
+      })
     }
   };
 
