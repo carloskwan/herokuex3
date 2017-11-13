@@ -59,7 +59,7 @@ app.post('/webhook', function (req, res) {
     'input.welcome': () => {
       
       var options = {
-        uri: 'http://172.16.1.146:8585/v1/userRegistration',
+        uri: 'https://jsonplaceholder.typicode.com/users',
         headers: {
           'Accept': 'application/json'
       }
@@ -74,7 +74,7 @@ app.post('/webhook', function (req, res) {
             speech: webhookReply,
             displayText: webhookReply
           })
-          
+
           
         })
         .catch(function (err) {
