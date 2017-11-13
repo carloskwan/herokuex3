@@ -57,7 +57,7 @@ app.post('/webhook', function (req, res) {
     // The default welcome intent has been matched, welcome the user (https://dialogflow.com/docs/events#default_welcome_intent)
 
     'input.welcome': () => {
-      /*
+      
       var options = {
         uri: 'http://172.16.1.146:8585/v1/userRegistration',
         headers: {
@@ -67,20 +67,21 @@ app.post('/webhook', function (req, res) {
       };
       rp(options)
         .then(function (object) {
-          console.log("call to neuhope server");
+          console.log("call to neuhope server");dialogObject=dialogs;
+          webhookReply = "Welcome from Heroku"
+          res.status(200).json({
+            source: 'webhook',
+            speech: webhookReply,
+            displayText: webhookReply
+          })
+          
           
         })
         .catch(function (err) {
           // API call failed...
         });
-        */
-        dialogObject=dialogs;
-        webhookReply = "Welcome from Heroku"
-        res.status(200).json({
-          source: 'webhook',
-          speech: webhookReply,
-          displayText: webhookReply
-        })
+        
+        
       
     },
     // The default fallback intent has been matched, try to recover (https://dialogflow.com/docs/intents#fallback_intents)
