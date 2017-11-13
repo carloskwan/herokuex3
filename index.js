@@ -149,6 +149,33 @@ app.post('/webhook', function (req, res) {
         speech: webhookReply,
         displayText: webhookReply
       })
+    },
+    'validationCode': () => {
+      
+      webhookReply = dialogObject.dialogs.messages[3].message;//dialogs.messages[0].message;
+      res.status(200).json({
+        source: 'webhook',
+        speech: webhookReply,
+        displayText: webhookReply
+      })
+    },
+    'userName': () => {
+      
+      webhookReply = dialogObject.dialogs.messages[4].message;//dialogs.messages[0].message;
+      res.status(200).json({
+        source: 'webhook',
+        speech: webhookReply,
+        displayText: webhookReply
+      })
+    },
+    'lastName': () => {
+      
+      webhookReply = "under construction";//dialogs.messages[0].message;
+      res.status(200).json({
+        source: 'webhook',
+        speech: webhookReply,
+        displayText: webhookReply
+      })
     }
   };
 
