@@ -174,8 +174,8 @@ app.post('/webhook', function (req, res) {
     'lastName': () => {
       lastName = parameters['last-name'];
       webhookReply = dialogObject.dialogs.messages[5].message;
-      webhookReply.replace("$userFirstName",givenName);
-      webhookReply.replace("$userLastName",lastName);
+      webhookReply = webhookReply.replace("$userFirstName",givenName);
+      webhookReply = webhookReply.replace("$userLastName",lastName);
       //webhookReply = "under construction";//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
