@@ -182,6 +182,15 @@ app.post('/webhook', function (req, res) {
         speech: webhookReply,
         displayText: webhookReply
       })
+
+      webhookReply = dialogObject.dialogs.messages[6].message;
+      webhookReply = webhookReply.replace("$userFirstName",givenName);
+      webhookReply = webhookReply.replace("$userLastName",lastName);
+      res.status(200).json({
+        source: 'webhook',
+        speech: webhookReply,
+        displayText: webhookReply
+      })
     }
   };
 
