@@ -138,8 +138,8 @@ app.post('/webhook', function (req, res) {
       })
     },
     'userType': () => {
-      
-      webhookReply = dialogObject.dialogs.messages[1].message;//dialogs.messages[0].message;
+      webhookReply = dialogObject.messages[3].message
+      //webhookReply = dialogObject.dialogs.messages[1].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
@@ -147,8 +147,8 @@ app.post('/webhook', function (req, res) {
       })
     },
     'phoneNumber': () => {
-      
-      webhookReply = dialogObject.dialogs.messages[2].message;//dialogs.messages[0].message;
+      webhookReply = dialogObject.messages[4].message
+      //webhookReply = dialogObject.dialogs.messages[2].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
