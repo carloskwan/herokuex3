@@ -72,7 +72,7 @@ app.post('/webhook', function (req, res) {
         .then(function (object) {
           
           dialogObject=object;
-          //console.log(dialogObject);
+          console.log(dialogObject.messages);
           webhookReply = "Welcome from Heroku"
           res.status(200).json({
             source: 'webhook',
@@ -130,7 +130,7 @@ app.post('/webhook', function (req, res) {
     },
     'registerUser': () => {
       //dialogObject=dialogs;
-      webhookReply = dialogObject[0]//.messages[2].message;//dialogs.messages[0].message;
+      webhookReply = dialogObject.messages[2].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
