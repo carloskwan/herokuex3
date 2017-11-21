@@ -1,0 +1,1206 @@
+{
+    "id": "1",
+    "modelID": "CONVERSATION",
+    "type": "USER_REGISTRATION",
+    "conversationStyle": "ONE_SCREEN_PER_MESSAGE",
+    "showInNotificationBar": false,
+    "userStageName": "User Registration",
+    "messages": [
+        {
+            "id": "1",
+            "picture": "HOPE_PICTURE",
+            "message": "Hello friend!",
+            "displayOrangeSeparator": true,
+            "control": {
+                "type": "TEXT",
+                "text": "Good <TIME_OF_THE_DAY>. I am Hope, your personal assistant. Let's get you registered first."
+            },
+            "buttonsContainer": {
+                "alignment": "HORIZONTAL",
+                "buttons": [
+                    {
+                        "text": "OK",
+                        "id": "OK_BUTTON",
+                        "style": "LEFT_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "GO_TO_MESSAGE",
+                                "gotoMessageID": "2"
+                            }
+                        }
+                    },
+                    {
+                        "text": "Cancel",
+                        "id": "CANCEL_BUTTON",
+                        "style": "RIGHT_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "GO_TO_MESSAGE",
+                                "gotoMessageID": "100"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "100",
+            "picture": "HOPE_PICTURE",
+            "message": "Registration is canceled",
+            "control": {
+                "type": "TEXT",
+                "text": "Please contact us at <CUSTOMER_SERVICE_PHONE_NO>, if you have any questions."
+            },
+            "buttonsContainer": {
+                "alignment": "HORIZONTAL",
+                "buttons": [
+                    {
+                        "text": "OK",
+                        "id": "OK_BUTTON",
+                        "style": "ORANGE_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "SEND_USER_DATA_IN_ONLY_REQUEST",
+                                "userDataInOnlyRequestDirective": {
+                                    "userStateName": "User Registration Canceled",
+                                    "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                    "userData": {
+                                        "attributes": []
+                                    }
+                                },
+                                "response": {
+                                    "success": {
+                                        "action": {
+                                            "name": "EXIT"
+                                        }
+                                    },
+                                    "error": {
+                                        "action": {
+                                            "name": "PROCESS_ERROR_MESSAGE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "2",
+            "picture": "HOPE_PICTURE",
+            "message": "How would you like to register yourself?",
+            "displayOrangeSeparator": false,
+            "control": {
+                "type": "OPTIONS",
+                "subType": "MUTUALLY_EXCLUSIVE",
+                "style": "CAROUSEL",
+                "dataBinding": {
+                    "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_CONTROL",
+                    "type": "OBJECT",
+                    "value": "SELECTED_OPTION",
+                    "bindToVariable": "userType"
+                },
+                "options": {
+                    "list": [
+                        {
+                            "name": "Patient",
+                            "value": "PATIENT"
+                        },
+                        {
+                            "name": "Caregiver",
+                            "value": "CAREGIVER"
+                        },
+                        {
+                            "name": "Family of a Patient",
+                            "value": "FAMILY_OF_A_PATIENT"
+                        },
+                        {
+                            "name": "Friend of a Patient",
+                            "value": "FRIEND_OF_A_PATIENT"
+                        },
+                        {
+                            "name": "Hope Ambassador",
+                            "value": "HOPE_AMBASSADOR"
+                        },
+                        {
+                            "name": "Doctor",
+                            "value": "DOCTOR"
+                        },
+                        {
+                            "name": "Nurse",
+                            "value": "NURSE"
+                        },
+                        {
+                            "name": "Volunteer",
+                            "value": "VOLUNTEER"
+                        }
+                    ]
+                },
+                "actionButtonForValidation": "OK_BUTTON",
+                "validation": {
+                    "type": "USER_TYPE_VALIDATION",
+                    "onFailurePopUp": "$validationErrorMessage"
+                }
+            },
+            "buttonsContainer": {
+                "alignment": "HORIZONTAL",
+                "buttons": [
+                    {
+                        "text": "OK",
+                        "id": "OK_BUTTON",
+                        "style": "LEFT_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "GO_TO_MESSAGE",
+                                "gotoMessageID": "3"
+                            }
+                        }
+                    },
+                    {
+                        "text": "Cancel",
+                        "id": "CANCEL_BUTTON",
+                        "style": "RIGHT_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "GO_TO_MESSAGE",
+                                "gotoMessageID": "100"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "3",
+            "picture": "HOPE_PICTURE",
+            "message": "Enter your mobile number",
+            "displayOrangeSeparator": true,
+            "control": {
+                "type": "TEXT_INPUT",
+                "inputFields": [
+                    {
+                        "name": "Mobile Number",
+                        "icon": "MOBILE_TEXT_INPUT_ICON",
+                        "subtype": "NUMBER",
+                        "dataBinding": {
+                            "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_CONTROL",
+                            "type": "INTEGER",
+                            "value": "ENTERED_TEXT_INPUT",
+                            "bindToVariable": "userMobileNumber"
+                        },
+                        "validation": {
+                            "type": "MOBILE_NUMBER_VALIDATION",
+                            "onFailurePopUp": "$validationErrorMessage"
+                        }
+                    }
+                ],
+                "actionButtonForValidation": "NEXT_BUTTON"
+            },
+            "buttonsContainer": {
+                "alignment": "HORIZONTAL",
+                "buttons": [
+                    {
+                        "text": "Next",
+                        "id": "NEXT_BUTTON",
+                        "style": "ORANGE_BUTTON",
+                        "icon": "RIGHT_ARROW_BUTTON_ICON",
+                        "onClick": {
+                            "action": {
+                                "name": "SEND_USER_DATA_IN_OUT_REQUEST",
+                                "userDataInOutRequestDirective": {
+                                    "displayPopUp": {
+                                        "message": "Sending the validation code to your mobile phone"
+                                    },
+                                    "userStateName": "User Mobile Number Received",
+                                    "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                    "userData": {
+                                        "sentFromMobile": true,
+                                        "attributes": [
+                                            {
+                                                "name": "userType",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userType",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userMobileNumber",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userMobileNumber"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "response": {
+                                    "success": {
+                                        "action": {
+                                            "name": "GO_TO_MESSAGE",
+                                            "gotoMessageID": "4"
+                                        }
+                                    },
+                                    "error": {
+                                        "action": {
+                                            "name": "PROCESS_ERROR_MESSAGE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "4",
+            "picture": "HOPE_PICTURE",
+            "message": "Please enter the validation code that I have sent to your mobile phone",
+            "displayOrangeSeparator": true,
+            "control": {
+                "type": "TEXT_INPUT",
+                "inputFields": [
+                    {
+                        "name": "Validation Code",
+                        "icon": "LOCK_ICON_XXX",
+                        "subtype": "NUMBER",
+                        "dataBinding": {
+                            "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_CONTROL",
+                            "type": "INTEGER",
+                            "value": "ENTERED_TEXT_INPUT",
+                            "bindToVariable": "userEnteredValidationCode"
+                        },
+                        "validation": {
+                            "type": "CODE_NUMBER_VALIDATION",
+                            "onFailurePopUp": "$validationErrorMessage"
+                        }
+                    }
+                ],
+                "actionButtonForValidation": "NEXT_BUTTON"
+            },
+            "buttonsContainer": {
+                "alignment": "VERTICAL",
+                "buttons": [
+                    {
+                        "text": "Next",
+                        "id": "NEXT_BUTTON",
+                        "style": "ORANGE_BUTTON",
+                        "icon": "RIGHT_ARROW_BUTTON_ICON",
+                        "onClick": {
+                            "action": {
+                                "name": "SEND_USER_DATA_IN_OUT_REQUEST",
+                                "userDataInOutRequestDirective": {
+                                    "userStateName": "User Validation Code Received",
+                                    "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                    "userData": {
+                                        "attributes": [
+                                            {
+                                                "name": "userType",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userType",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userEnteredValidationCode",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userEnteredValidationCode",
+                                                "type": "STRING"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "response": {
+                                    "success": {
+                                        "action": {
+                                            "name": "GO_TO_MESSAGE",
+                                            "gotoMessageID": "5"
+                                        }
+                                    },
+                                    "error": {
+                                        "action": {
+                                            "name": "PROCESS_ERROR_MESSAGE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "text": "Resend the validation code",
+                        "id": "RESEND_THE_VALIDATION_CODE",
+                        "style": "BORDERLESS_WHITE_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "SEND_USER_DATA_IN_OUT_REQUEST",
+                                "userDataInOutRequestDirective": {
+                                    "displayPopUp": {
+                                        "message": "Sending the validation code to your mobile phone"
+                                    },
+                                    "userStateName": "User Mobile Number Received",
+                                    "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                    "userData": {
+                                        "sentFromMobile": true,
+                                        "attributes": [
+                                            {
+                                                "name": "userType",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userType",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userMobileNumber",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userMobileNumber",
+                                                "type": "STRING"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "response": {
+                                    "success": {
+                                        "action": {
+                                            "name": "NO_OP"
+                                        }
+                                    },
+                                    "error": {
+                                        "action": {
+                                            "name": "PROCESS_ERROR_MESSAGE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "5",
+            "picture": "HOPE_PICTURE",
+            "message": "OK, Now tell me a bit about yourself",
+            "displayOrangeSeparator": true,
+            "control": {
+                "type": "TEXT_INPUT",
+                "inputFields": [
+                    {
+                        "name": "First Name",
+                        "icon": "GENERAL_TEXT_INPUT_ICON",
+                        "subtype": "STRING",
+                        "dataBinding": {
+                            "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_CONTROL",
+                            "type": "STRING",
+                            "value": "ENTERED_TEXT_INPUT",
+                            "bindToVariable": "userFirstName"
+                        },
+                        "validation": {
+                            "type": "FIRST_NAME_VALIDATION",
+                            "onFailurePopUp": "$validationErrorMessage"
+                        }
+                    },
+                    {
+                        "name": "Last Name",
+                        "icon": "GENERAL_TEXT_INPUT_ICON",
+                        "subtype": "STRING",
+                        "dataBinding": {
+                            "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_CONTROL",
+                            "type": "STRING",
+                            "value": "ENTERED_TEXT_INPUT",
+                            "bindToVariable": "userLastName"
+                        },
+                        "validation": {
+                            "type": "LAST_NAME_VALIDATION",
+                            "onFailurePopUp": "$validationErrorMessage"
+                        }
+                    }
+                ],
+                "actionButtonForValidation": "ALMOST_DONE_BUTTON"
+            },
+            "buttonsContainer": {
+                "alignment": "HORIZONTAL",
+                "buttons": [
+                    {
+                        "text": "Almost Done",
+                        "id": "ALMOST_DONE_BUTTON",
+                        "style": "ORANGE_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "GO_TO_MESSAGE",
+                                "gotoMessageID": "6"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "6",
+            "picture": "CAMERA_EMPTY_INPUT",
+            "message": "Now select a picture",
+            "displayOrangeSeparator": false,
+            "control": {
+                "type": "PICTURE_INPUT",
+                "dataBinding": {
+                    "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_CONTROL",
+                    "type": "STRING",
+                    "value": "SELECTED_PICTURE",
+                    "bindToVariable": "selectedUserProfilePicture"
+                }
+            },
+            "buttonsContainer": {
+                "alignment": "VERTICAL",
+                "buttons": [
+                    {
+                        "text": "Take a profile picture",
+                        "id": "TAKE_A_PROFILE_PICTURE_BUTTON",
+                        "style": "ORANGE_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "TAKE_PICTURE_USING_CAMERA",
+                                "response": {
+                                    "success": {
+                                        "action": {
+                                            "name": "GO_TO_MESSAGE",
+                                            "gotoMessageID": "7"
+                                        }
+                                    },
+                                    "error": {
+                                        "action": {
+                                            "name": "PROCESS_ERROR_MESSAGE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "text": "Select from library",
+                        "id": "SELECT_FROM_LIBRARY_BUTTON",
+                        "style": "BORDERLESS_WHITE_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "SELECT_PICTURE_FROM_PHOTO_LIBRARY",
+                                "response": {
+                                    "success": {
+                                        "action": {
+                                            "name": "GO_TO_MESSAGE",
+                                            "gotoMessageID": "8"
+                                        }
+                                    },
+                                    "error": {
+                                        "action": {
+                                            "name": "PROCESS_ERROR_MESSAGE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "text": "Skip",
+                        "id": "SKIP_BUTTON",
+                        "style": "TRANSPARENT_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "SEND_USER_DATA_IN_OUT_REQUEST",
+                                "userDataInOutRequestDirective": {
+                                    "userStateName": "User Registration Data Received",
+                                    "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                    "userData": {
+                                        "attributes": [
+                                            {
+                                                "name": "userType",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userType",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userMobileNumber",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userMobileNumber",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userFirstName",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userFirstName",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userLastName",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userLastName",
+                                                "type": "STRING"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "response": {
+                                    "success": {
+                                        "action": {
+                                            "name": "SAVE_SERVER_DATA_ATTRIBUTES",
+                                            "attributes": [
+                                                "userID",
+                                                "userFirstName",
+                                                "userLastName",
+                                                "userType",
+                                                "userMobileNumber"
+                                            ],
+                                            "response": {
+                                                "success": {
+                                                    "action": {
+                                                        "name": "SEARCH_THE_CONTENTS_ID",
+                                                        "type": "TEXT",
+                                                        "searchContentsIDRequestDirective": {
+                                                            "contentsType": "MENU",
+                                                            "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                                            "contentsSource": "CONTENT_SEARCH_MANAGER",
+                                                            "searchAttributes": {
+                                                                "modelID": "MENU",
+                                                                "documentID": "MAIN_MENU",
+                                                                "userType": "$userType"
+                                                            }
+                                                        },
+                                                        "searchContentsIDResponseDirective": {
+                                                            "dataBindings": [
+                                                                {
+                                                                    "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_RESPONSE",
+                                                                    "type": "STRING",
+                                                                    "value": "$contentsID",
+                                                                    "bindToVariable": "contentsID"
+                                                                },
+                                                                {
+                                                                    "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_RESPONSE",
+                                                                    "type": "STRING",
+                                                                    "value": "$localesID",
+                                                                    "bindToVariable": "localesID"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "response": {
+                                                            "success": {
+                                                                "action": {
+                                                                    "name": "GET_THE_CONTENTS",
+                                                                    "type": "TEXT",
+                                                                    "alwaysDownload": false,
+                                                                    "getContentsRequestDirective": {
+                                                                        "contentsType": "MENU",
+                                                                        "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                                                        "contentsSource": "CONTENT_SEARCH_MANAGER",
+                                                                        "contentsID": "$contentsID",
+                                                                        "localesID": "$localesID"
+                                                                    },
+                                                                    "getContentsResponseDirective": {
+                                                                        "store": true
+                                                                    },
+                                                                    "response": {
+                                                                        "success": {
+                                                                            "action": {
+                                                                                "name": "SEND_USER_DATA_IN_ONLY_REQUEST",
+                                                                                "userDataInOnlyRequestDirective": {
+                                                                                    "userStateName": "User Registered Successfully",
+                                                                                    "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                                                                    "userData": {
+                                                                                        "attributes": []
+                                                                                    }
+                                                                                },
+                                                                                "response": {
+                                                                                    "success": {
+                                                                                        "action": {
+                                                                                            "name": "GO_TO_MESSAGE",
+                                                                                            "gotoMessageID": "9"
+                                                                                        }
+                                                                                    },
+                                                                                    "error": {
+                                                                                        "action": {
+                                                                                            "name": "PROCESS_ERROR_MESSAGE"
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        "error": {
+                                                                            "action": {
+                                                                                "name": "PROCESS_ERROR_MESSAGE"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "error": {
+                                                    "action": {
+                                                        "name": "PROCESS_ERROR_MESSAGE"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "error": {
+                                        "action": {
+                                            "name": "PROCESS_ERROR_MESSAGE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "7",
+            "picture": "USER_PROFILE_PICTURE",
+            "message": "It's a great picture!",
+            "displayOrangeSeparator": false,
+            "control": {
+                "type": "PICTURE_INPUT",
+                "dataBinding": {
+                    "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_CONTROL",
+                    "type": "STRING",
+                    "value": "SELECTED_PICTURE",
+                    "bindToVariable": "selectedUserProfilePicture"
+                },
+                "validation": {
+                    "type": "PICTURE_INPUT_VALIDATION",
+                    "onFailurePopUp": "$validationErrorMessage"
+                },
+                "actionButtonForValidation": "LOOKS_GOOD_BUTTON"
+            },
+            "buttonsContainer": {
+                "alignment": "VERTICAL",
+                "buttons": [
+                    {
+                        "text": "Looks Good",
+                        "id": "LOOKS_GOOD_BUTTON",
+                        "style": "ORANGE_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "SEND_USER_DATA_IN_OUT_REQUEST",
+                                "userDataInOutRequestDirective": {
+                                    "userStateName": "User Registration Data Received",
+                                    "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                    "userData": {
+                                        "containsPictureContents": true,
+                                        "attributes": [
+                                            {
+                                                "name": "userType",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userType",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userMobileNumber",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userMobileNumber",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userFirstName",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userFirstName",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userLastName",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userLastName",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userProfilePicture",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_PHONE",
+                                                "type": "PICTURE",
+                                                "dbMapping": "profilePicture"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "response": {
+                                    "success": {
+                                        "action": {
+                                            "name": "SAVE_SERVER_DATA_ATTRIBUTES",
+                                            "attributes": [
+                                                "userID",
+                                                "userFirstName",
+                                                "userLastName",
+                                                "userType",
+                                                "userMobileNumber"
+                                            ],
+                                            "response": {
+                                                "success": {
+                                                    "action": {
+                                                        "name": "SEARCH_THE_CONTENTS_ID",
+                                                        "type": "TEXT",
+                                                        "searchContentsIDRequestDirective": {
+                                                            "contentsType": "MENU",
+                                                            "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                                            "contentsSource": "CONTENT_SEARCH_MANAGER",
+                                                            "searchAttributes": {
+                                                                "modelID": "MENU",
+                                                                "documentID": "MAIN_MENU",
+                                                                "userType": "$userType"
+                                                            }
+                                                        },
+                                                        "searchContentsIDResponseDirective": {
+                                                            "dataBindings": [
+                                                                {
+                                                                    "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_RESPONSE",
+                                                                    "type": "STRING",
+                                                                    "value": "$contentsID",
+                                                                    "bindToVariable": "contentsID"
+                                                                },
+                                                                {
+                                                                    "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_RESPONSE",
+                                                                    "type": "STRING",
+                                                                    "value": "$localesID",
+                                                                    "bindToVariable": "localesID"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "response": {
+                                                            "success": {
+                                                                "action": {
+                                                                    "name": "GET_THE_CONTENTS",
+                                                                    "type": "TEXT",
+                                                                    "alwaysDownload": false,
+                                                                    "getContentsRequestDirective": {
+                                                                        "contentsType": "MENU",
+                                                                        "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                                                        "contentsSource": "CONTENT_SEARCH_MANAGER",
+                                                                        "contentsID": "$contentsID",
+                                                                        "localesID": "$localesID"
+                                                                    },
+                                                                    "getContentsResponseDirective": {
+                                                                        "store": true
+                                                                    },
+                                                                    "response": {
+                                                                        "success": {
+                                                                            "action": {
+                                                                                "name": "SEND_USER_DATA_IN_ONLY_REQUEST",
+                                                                                "userDataInOnlyRequestDirective": {
+                                                                                    "userStateName": "User Registered Successfully",
+                                                                                    "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                                                                    "userData": {
+                                                                                        "attributes": []
+                                                                                    }
+                                                                                },
+                                                                                "response": {
+                                                                                    "success": {
+                                                                                        "action": {
+                                                                                            "name": "UPLOAD_PICTURES",
+                                                                                            "pictureContentsUploadRequestDirective": {
+                                                                                                "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                                                                                "contentsSource": "USER_PICTURE_CONTENTS_MANAGER",
+                                                                                                "pictures": [
+                                                                                                    {
+                                                                                                        "url": "$userProfilePicture.userPictureContentsURL",
+                                                                                                        "contentsID": "$userProfilePicture.contentsID",
+                                                                                                        "userFile": "$selectedUserProfilePicture"
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            "response": {
+                                                                                                "success": {
+                                                                                                    "action": {
+                                                                                                        "name": "GO_TO_MESSAGE",
+                                                                                                        "gotoMessageID": "9"
+                                                                                                    }
+                                                                                                },
+                                                                                                "error": {
+                                                                                                    "action": {
+                                                                                                        "name": "PROCESS_ERROR_MESSAGE"
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    },
+                                                                                    "error": {
+                                                                                        "action": {
+                                                                                            "name": "PROCESS_ERROR_MESSAGE"
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        "error": {
+                                                                            "action": {
+                                                                                "name": "PROCESS_ERROR_MESSAGE"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "error": {
+                                                    "action": {
+                                                        "name": "PROCESS_ERROR_MESSAGE"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "error": {
+                                        "action": {
+                                            "name": "PROCESS_ERROR_MESSAGE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "text": "Retake profile picture",
+                        "id": "RETAKE_PROFILE_PICTURE_BUTTON",
+                        "style": "BORDERLESS_WHITE_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "RETAKE_PICTURE_USING_CAMERA"
+                            },
+                            "response": {
+                                "success": {
+                                    "action": {
+                                        "name": "NO_OP"
+                                    }
+                                },
+                                "error": {
+                                    "action": {
+                                        "name": "PROCESS_ERROR_MESSAGE"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "8",
+            "picture": "USER_PROFILE_PICTURE",
+            "message": "It's a great picture!",
+            "displayOrangeSeparator": false,
+            "control": {
+                "type": "PICTURE_INPUT",
+                "dataBinding": {
+                    "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_CONTROL",
+                    "type": "STRING",
+                    "value": "SELECTED_PICTURE",
+                    "bindToVariable": "selectedUserProfilePicture"
+                }
+            },
+            "buttonsContainer": {
+                "alignment": "VERTICAL",
+                "buttons": [
+                    {
+                        "text": "Looks Good",
+                        "id": "LOOKS_GOOD_BUTTON",
+                        "style": "ORANGE_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "SEND_USER_DATA_IN_OUT_REQUEST",
+                                "userDataInOutRequestDirective": {
+                                    "userStateName": "User Registration Data Received",
+                                    "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                    "userData": {
+                                        "containsPictureContents": true,
+                                        "attributes": [
+                                            {
+                                                "name": "userType",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userType",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userMobileNumber",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userMobileNumber",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userFirstName",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userFirstName",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userLastName",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+                                                "value": "$userLastName",
+                                                "type": "STRING"
+                                            },
+                                            {
+                                                "name": "userProfilePicture",
+                                                "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_PHONE",
+                                                "type": "PICTURE",
+                                                "dbMapping": "profilePicture"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "response": {
+                                    "success": {
+                                        "action": {
+                                            "name": "SAVE_SERVER_DATA_ATTRIBUTES",
+                                            "attributes": [
+                                                "userID",
+                                                "userFirstName",
+                                                "userLastName",
+                                                "userType",
+                                                "userMobileNumber"
+                                            ],
+                                            "response": {
+                                                "success": {
+                                                    "action": {
+                                                        "name": "SEARCH_THE_CONTENTS_ID",
+                                                        "type": "TEXT",
+                                                        "searchContentsIDRequestDirective": {
+                                                            "contentsType": "MENU",
+                                                            "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                                            "contentsSource": "CONTENT_SEARCH_MANAGER",
+                                                            "searchAttributes": {
+                                                                "modelID": "MENU",
+                                                                "documentID": "MAIN_MENU",
+                                                                "userType": "$userType"
+                                                            }
+                                                        },
+                                                        "searchContentsIDResponseDirective": {
+                                                            "dataBindings": [
+                                                                {
+                                                                    "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_RESPONSE",
+                                                                    "type": "STRING",
+                                                                    "value": "$contentsID",
+                                                                    "bindToVariable": "contentsID"
+                                                                },
+                                                                {
+                                                                    "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_RESPONSE",
+                                                                    "type": "STRING",
+                                                                    "value": "$localesID",
+                                                                    "bindToVariable": "localesID"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "response": {
+                                                            "success": {
+                                                                "action": {
+                                                                    "name": "GET_THE_CONTENTS",
+                                                                    "type": "TEXT",
+                                                                    "alwaysDownload": false,
+                                                                    "getContentsRequestDirective": {
+                                                                        "contentsType": "MENU",
+                                                                        "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                                                        "contentsSource": "CONTENT_SEARCH_MANAGER",
+                                                                        "contentsID": "$contentsID",
+                                                                        "localesID": "$localesID"
+                                                                    },
+                                                                    "getContentsResponseDirective": {
+                                                                        "store": true
+                                                                    },
+                                                                    "response": {
+                                                                        "success": {
+                                                                            "action": {
+                                                                                "name": "SEND_USER_DATA_IN_ONLY_REQUEST",
+                                                                                "userDataInOnlyRequestDirective": {
+                                                                                    "userStateName": "User Registered Successfully",
+                                                                                    "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                                                                    "userData": {
+                                                                                        "attributes": []
+                                                                                    }
+                                                                                },
+                                                                                "response": {
+                                                                                    "success": {
+                                                                                        "action": {
+                                                                                            "name": "UPLOAD_PICTURES",
+                                                                                            "pictureContentsUploadRequestDirective": {
+                                                                                                "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                                                                                                "contentsSource": "USER_PICTURE_CONTENTS_MANAGER",
+                                                                                                "pictures": [
+                                                                                                    {
+                                                                                                        "url": "$userProfilePicture.userPictureContentsURL",
+                                                                                                        "contentsID": "$userProfilePicture.contentsID",
+                                                                                                        "userFile": "$selectedUserProfilePicture"
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            "response": {
+                                                                                                "success": {
+                                                                                                    "action": {
+                                                                                                        "name": "GO_TO_MESSAGE",
+                                                                                                        "gotoMessageID": "9"
+                                                                                                    }
+                                                                                                },
+                                                                                                "error": {
+                                                                                                    "action": {
+                                                                                                        "name": "PROCESS_ERROR_MESSAGE"
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    },
+                                                                                    "error": {
+                                                                                        "action": {
+                                                                                            "name": "PROCESS_ERROR_MESSAGE"
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        "error": {
+                                                                            "action": {
+                                                                                "name": "PROCESS_ERROR_MESSAGE"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "error": {
+                                                    "action": {
+                                                        "name": "PROCESS_ERROR_MESSAGE"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "error": {
+                                        "action": {
+                                            "name": "PROCESS_ERROR_MESSAGE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "text": "Reselect from library",
+                        "id": "RESELECT_FROM_LIBRARY",
+                        "style": "BORDERLESS_WHITE_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "RESELECT_PICTURE_FROM_PHOTO_LIBRARY"
+                            },
+                            "response": {
+                                "success": {
+                                    "action": {
+                                        "name": "NO_OP"
+                                    }
+                                },
+                                "error": {
+                                    "action": {
+                                        "name": "PROCESS_ERROR_MESSAGE"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "9",
+            "picture": "HOPE_PICTURE",
+            "goBackEnabled": false,
+            "serverOperation": {
+                "type": "MESSAGE",
+                "operationInOutRequestDirective": {
+                    "operationName": "com.neuhope.operations.message.GetConditionalMessage",
+                    "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+                    "operationInput": {
+                        "parameters": [
+                            {
+                                "name": "condition",
+                                "valueProcessingHint": "FIXED_VALUE",
+                                "type": "JSON_OBJECT",
+                                "objectValue": {
+                                    "if": {
+                                        "condition": {
+                                            "variable": "userIsPreRegistered",
+                                            "type": "STRING",
+                                            "test": "==",
+                                            "value": true
+                                        }
+                                    },
+                                    "then": {
+                                        "expressionValue": "Account updated successfully"
+                                    },
+                                    "else": {
+                                        "expressionValue": "Account created successfully"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "control": {
+                "type": "TEXT",
+                "text": "You can visit your user profile later to provide me with additional details about yourself."
+            },
+            "buttonsContainer": {
+                "alignment": "HORIZONTAL",
+                "buttons": [
+                    {
+                        "text": "OK",
+                        "id": "OK_BUTTON",
+                        "style": "ORANGE_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "GO_TO_MESSAGE",
+                                "gotoMessageID": "10"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "10",
+            "picture": "USER_PROFILE_PICTURE",
+            "pictureAttributes": [
+                {
+                    "type": "PRIMARY",
+                    "name": "USER_NAME"
+                },
+                {
+                    "type": "SECONDARY",
+                    "name": "USER_MOBILE_NUMBER"
+                }
+            ],
+            "goBackEnabled": true,
+            "message": "You are all set!",
+            "control": {
+                "type": "TEXT",
+                "text": "Now you can start using the Hope Application"
+            },
+            "buttonsContainer": {
+                "alignment": "HORIZONTAL",
+                "buttons": [
+                    {
+                        "text": "Main Menu",
+                        "id": "MAIN_MENU_BUTTON",
+                        "style": "ORANGE_BUTTON",
+                        "onClick": {
+                            "action": {
+                                "name": "END_OF_CONVERSATION",
+                                "response": {
+                                    "success": {
+                                        "action": {
+                                            "name": "GO_TO_MAIN_MENU"
+                                        }
+                                    },
+                                    "error": {
+                                        "action": {
+                                            "name": "PROCESS_ERROR_MESSAGE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
