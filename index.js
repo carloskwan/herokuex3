@@ -71,8 +71,8 @@ app.post('/webhook', function (req, res) {
       rp(options)
         .then(function (object) {
           
-          dialogObject=object;
-          console.log(object[0]);
+          dialogObject=JSON.parse(object);
+          console.log(dialogObject);
           webhookReply = "Welcome from Heroku"
           res.status(200).json({
             source: 'webhook',
