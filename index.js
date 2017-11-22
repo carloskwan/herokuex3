@@ -90,11 +90,12 @@ app.post('/webhook', function (req, res) {
             ],
             "source": "webhook"
             */
-            /*
+            
             source: 'webhook',
             speech: webhookReply,
             displayText: webhookReply
-            */
+            
+            /*
             "messages": [
               {
                 "displayText": "Text response",
@@ -109,6 +110,7 @@ app.post('/webhook', function (req, res) {
                 "type": "simple_response"
               },
             ]
+            */
           })
           
           
@@ -210,22 +212,42 @@ app.post('/webhook', function (req, res) {
       webhookReply = dialogObject.messages[5].message;
       webhookReply = webhookReply.replace("$userFirstName",givenName);
       webhookReply = webhookReply.replace("$userLastName",lastName);
+
+
+
       //webhookReply = "under construction";//dialogs.messages[0].message;
+      /*
       res.status(200).json({
         
         source: 'webhook',
         speech: webhookReply,
         displayText: webhookReply
       })
+      */
 
-      webhookReply = dialogObject.messages[6].message;
-      webhookReply = webhookReply.replace("$userFirstName",givenName);
-      webhookReply = webhookReply.replace("$userLastName",lastName);
+      let webhookReply2 = dialogObject.messages[6].message;
+      webhookReply2 = webhookReply2.replace("$userFirstName",givenName);
+      webhookReply2 = webhookReply2.replace("$userLastName",lastName);
       res.status(200).json({
-        source: 'webhook',
-        speech: webhookReply,
-        displayText: webhookReply
+        "messages": [
+          {
+            "displayText": webhookReply,
+            "platform": "google",
+            "textToSpeech": webhookReply,
+            "type": "simple_response"
+          },
+          {
+            "displayText": webhookReply2,
+            "platform": "google",
+            "textToSpeech": webhookReply2,
+            "type": "simple_response"
+          },
+        ]
       })
+
+      
+
+
     }
   };
 
