@@ -76,9 +76,23 @@ app.post('/webhook', function (req, res) {
           console.log(dialogObject);
           webhookReply = "Welcome to NeuHope"
           res.status(200).json({
+            "speech": "",
+            "messages": [
+            {
+            "type": 0,
+            "speech": "webhookReply"
+            },
+            {
+            "type": 0,
+            "speech": "What can I do for you?"
+            }
+            ],
+            "source": "webhook"
+            /*
             source: 'webhook',
             speech: webhookReply,
             displayText: webhookReply
+            */
           })
           
           
@@ -182,6 +196,7 @@ app.post('/webhook', function (req, res) {
       webhookReply = webhookReply.replace("$userLastName",lastName);
       //webhookReply = "under construction";//dialogs.messages[0].message;
       res.status(200).json({
+        
         source: 'webhook',
         speech: webhookReply,
         displayText: webhookReply
