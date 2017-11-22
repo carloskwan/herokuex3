@@ -101,7 +101,13 @@ app.post('/webhook', function (req, res) {
                 "platform": "google",
                 "textToSpeech": "Audio response",
                 "type": "simple_response"
-              }
+              },
+              {
+                "displayText": "Text response 2",
+                "platform": "google",
+                "textToSpeech": "Audio response 2",
+                "type": "simple_response"
+              },
             ]
           })
           
