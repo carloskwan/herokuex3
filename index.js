@@ -90,11 +90,19 @@ app.post('/webhook', function (req, res) {
             ],
             "source": "webhook"
             */
-            
+            /*
             source: 'webhook',
             speech: webhookReply,
             displayText: webhookReply
-            
+            */
+            "messages": [
+              {
+                "displayText": "Text response",
+                "platform": "google",
+                "textToSpeech": "Audio response",
+                "type": "simple_response"
+              }
+            ]
           })
           
           
