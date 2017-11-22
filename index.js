@@ -132,7 +132,7 @@ app.post('/webhook', function (req, res) {
     'registerUser': () => {
       //dialogObject=dialogs;
       //webhookReply = dialogObject.messages[2].message;//dialogs.messages[0].message;
-      webhookReply = dialogObject.dialogs.messages[0].message;
+      webhookReply = dialogObject.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
