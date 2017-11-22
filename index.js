@@ -141,7 +141,7 @@ app.post('/webhook', function (req, res) {
     },
     'userType': () => {
       //webhookReply = dialogObject.messages[3].message
-      webhookReply = dialogObject.dialogs.messages[1].message;//dialogs.messages[0].message;
+      webhookReply = dialogObject.messages[1].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
@@ -150,7 +150,7 @@ app.post('/webhook', function (req, res) {
     },
     'phoneNumber': () => {
       //webhookReply = dialogObject.messages[4].message
-      webhookReply = dialogObject.dialogs.messages[2].message;//dialogs.messages[0].message;
+      webhookReply = dialogObject.messages[2].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
@@ -159,7 +159,7 @@ app.post('/webhook', function (req, res) {
     },
     'validationCode': () => {
       //webhookReply = dialogObject.messages[1].message+" "+
-      webhookReply = dialogObject.dialogs.messages[3].message;//dialogs.messages[0].message;
+      webhookReply = dialogObject.messages[3].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
@@ -168,7 +168,7 @@ app.post('/webhook', function (req, res) {
     },
     'userName': () => {
       givenName = parameters['given-name'];
-      webhookReply = dialogObject.dialogs.messages[4].message;//dialogs.messages[0].message;
+      webhookReply = dialogObject.messages[4].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
@@ -187,7 +187,7 @@ app.post('/webhook', function (req, res) {
         displayText: webhookReply
       })
 
-      webhookReply = dialogObject.dialogs.messages[6].message;
+      webhookReply = dialogObject.messages[6].message;
       webhookReply = webhookReply.replace("$userFirstName",givenName);
       webhookReply = webhookReply.replace("$userLastName",lastName);
       res.status(200).json({
