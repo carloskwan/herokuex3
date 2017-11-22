@@ -73,9 +73,10 @@ app.post('/webhook', function (req, res) {
           
           //dialogObject=JSON.parse(object);
           dialogObject=JSON.parse(object);
-          console.log(dialogObject);
+          //console.log(dialogObject);
           webhookReply = "Welcome to NeuHope"
           res.status(200).json({
+            /*
             "speech": "",
             "messages": [
             {
@@ -88,11 +89,12 @@ app.post('/webhook', function (req, res) {
             }
             ],
             "source": "webhook"
-            /*
+            */
+            
             source: 'webhook',
             speech: webhookReply,
             displayText: webhookReply
-            */
+            
           })
           
           
