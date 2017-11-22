@@ -71,9 +71,10 @@ app.post('/webhook', function (req, res) {
       rp(options)
         .then(function (object) {
           
-          dialogObject=JSON.parse(object);
-          console.log(dialogObject);
-          webhookReply = "Welcome from Heroku"
+          //dialogObject=JSON.parse(object);
+          dialogObject=object;
+          //console.log(dialogObject);
+          webhookReply = "Welcome to NeuHope"
           res.status(200).json({
             source: 'webhook',
             speech: webhookReply,
@@ -130,7 +131,8 @@ app.post('/webhook', function (req, res) {
     },
     'registerUser': () => {
       //dialogObject=dialogs;
-      webhookReply = dialogObject.messages[2].message;//dialogs.messages[0].message;
+      //webhookReply = dialogObject.messages[2].message;//dialogs.messages[0].message;
+      webhookReply = dialogObject.dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
@@ -138,8 +140,8 @@ app.post('/webhook', function (req, res) {
       })
     },
     'userType': () => {
-      webhookReply = dialogObject.messages[3].message
-      //webhookReply = dialogObject.dialogs.messages[1].message;//dialogs.messages[0].message;
+      //webhookReply = dialogObject.messages[3].message
+      webhookReply = dialogObject.dialogs.messages[1].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
@@ -147,8 +149,8 @@ app.post('/webhook', function (req, res) {
       })
     },
     'phoneNumber': () => {
-      webhookReply = dialogObject.messages[4].message
-      //webhookReply = dialogObject.dialogs.messages[2].message;//dialogs.messages[0].message;
+      //webhookReply = dialogObject.messages[4].message
+      webhookReply = dialogObject.dialogs.messages[2].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
@@ -156,7 +158,7 @@ app.post('/webhook', function (req, res) {
       })
     },
     'validationCode': () => {
-      
+      //webhookReply = dialogObject.messages[1].message+" "+
       webhookReply = dialogObject.dialogs.messages[3].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
