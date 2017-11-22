@@ -72,7 +72,7 @@ app.post('/webhook', function (req, res) {
         .then(function (object) {
           
           //dialogObject=JSON.parse(object);
-          dialogObject=object;
+          dialogObject=JSON.parse(object);
           //console.log(dialogObject);
           webhookReply = "Welcome to NeuHope"
           res.status(200).json({
