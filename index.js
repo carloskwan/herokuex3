@@ -182,6 +182,7 @@ app.post('/webhook', function (req, res) {
     },
     'phoneNumber': () => {
       //webhookReply = dialogObject.messages[4].message
+      console.log(parameters['telephone']);
       webhookReply = dialogObject.messages[2].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
