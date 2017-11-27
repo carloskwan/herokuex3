@@ -29,8 +29,8 @@ app.get('/webhook', function (req, res) {
 app.post('/webhook', function (req, res) {
   // we expect to receive JSON data from api.ai here.
   // the payload is stored on req.body
-  console.log("user ID: "+req.body.originalRequest.data.user.userId)
-  console.log("conversation ID: "+req.body.originalRequest.data.conversation.conversationId)
+  //console.log("user ID: "+req.body.originalRequest.data.user.userId)
+  //console.log("conversation ID: "+req.body.originalRequest.data.conversation.conversationId)
   // An action is a string used to identify what needs to be done in fulfillment
   let action = req.body.result.action; // https://dialogflow.com/docs/actions-and-parameters
 
