@@ -175,12 +175,14 @@ app.post('/webhook', function (req, res) {
           'Accept': 'application/json'
         },
         body: {
-          userToken: "ABwppHFa4wfa31rzy1ONC2ULZ7XkJN1taFEIdK7HWUseka21l2WdVOHG7GwQqnq4mMhbajvm0bQ921sIKDY",
-          language: "en",
-          userData: {
-            attributes: [
-            ]
-          }
+          "userToken": "ABwppHFa4wfa31rzy1ONC2ULZ7XkJN1taFEIdK7HWUseka21l2WdVOHG7GwQqnq4mMhbajvm0bQ921sIKDY",
+          "language":"en",
+            "userData": {
+          
+              "attributes": [
+          
+              ]
+            }
 
         },
         json: true // Automatically parses the JSON string in the response
