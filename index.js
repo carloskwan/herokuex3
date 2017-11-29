@@ -16,6 +16,7 @@ let dialogObject;
 let givenName;
 let lastName;
 let conversationSessionID;
+let userType;
 
 
 app.get('/', function (req, res) {
@@ -176,13 +177,13 @@ app.post('/webhook', function (req, res) {
         },
         body: {
           "userToken": "ABwppHFa4wfa31rzy1ONC2ULZ7XkJN1taFEIdK7HWUseka21l2WdVOHG7GwQqnq4mMhbajvm0bQ921sIKDY",
-          "language":"en",
-            "userData": {
-          
-              "attributes": [
-          
-              ]
-            }
+          "language": "en",
+          "userData": {
+
+            "attributes": [
+
+            ]
+          }
 
         },
         json: true // Automatically parses the JSON string in the response
@@ -202,6 +203,7 @@ app.post('/webhook', function (req, res) {
           //let answer = JSON.parse(object);
           //conversationSessionID=answer.conversationSessionID;
           console.log(object.conversationSessionID);
+          conversationSessionID = object.conversationSessionID;
           webhookReply = dialogs.dialogs.messages[0].message;
           res.status(200).json({
             source: 'webhook',
@@ -213,18 +215,19 @@ app.post('/webhook', function (req, res) {
           // API call failed...
         });
 
-        /*
-      webhookReply = dialogs.dialogs.messages[0].message;
-      res.status(200).json({
-        source: 'webhook',
-        speech: webhookReply,
-        displayText: webhookReply
-      })
-      */
+      /*
+    webhookReply = dialogs.dialogs.messages[0].message;
+    res.status(200).json({
+      source: 'webhook',
+      speech: webhookReply,
+      displayText: webhookReply
+    })
+    */
     },
     'userType': () => {
 
       //webhookReply = dialogObject.messages[1].message;//dialogs.messages[0].message;
+      userType = parameters['user-type'].toUpperCase();
       webhookReply = dialogs.dialogs.messages[1].message;
       res.status(200).json({
         source: 'webhook',
@@ -236,16 +239,62 @@ app.post('/webhook', function (req, res) {
       //webhookReply = dialogObject.messages[4].message
       console.log(parameters['telephone']);
 
+
+      var options = {
+        method: 'POST',
+        uri: 'http://hope.westus.cloudapp.azure.com:8585/v1/userDataInOutRequest',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: {
+          "conversationSessionID": conversationSessionID,
+          "userStateName": "User Mobile Number Received",
+          "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+          "userData": {
+            "sentFromMobile": true,
+            "attributes": [
+              {
+                "name": "userType",
+                "type": "string",
+                "value": userType
+              },
+              {
+                "name": "userMobileNumber",
+                "value": "+5219991189386"
+              }
+            ]
+          }
+
+        },
+        json: true // Automatically parses the JSON string in the response
+      };
+      console.log(options.body);
+      rp(options)
+        .then(function (object) {
+
+          webhookReply = dialogs.dialogs.messages[2].message;
+          res.status(200).json({
+            source: 'webhook',
+            speech: webhookReply,
+            displayText: webhookReply
+          })
+        })
+        .catch(function (err) {
+          // API call failed...
+        });
       //webhookReply = dialogObject.messages[2].message;//dialogs.messages[0].message;
-      webhookReply = dialogs.dialogs.messages[2].message;
+
+      /* webhookReply = dialogs.dialogs.messages[2].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
         displayText: webhookReply
-      })
+      }) */
     },
     'validationCode': () => {
       //webhookReply = dialogObject.messages[1].message+" "+
+      
       webhookReply = dialogObject.messages[3].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
