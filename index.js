@@ -199,9 +199,9 @@ app.post('/webhook', function (req, res) {
             displayText: webhookReply
           }) */
           console.log(object);
-          let answer = JSON.parse(object);
-          conversationSessionID=answer.conversationSessionID;
-          console.log(conversationSessionID);
+          //let answer = JSON.parse(object);
+          //conversationSessionID=answer.conversationSessionID;
+          //console.log(conversationSessionID);
           webhookReply = dialogs.dialogs.messages[0].message;
           res.status(200).json({
             source: 'webhook',
