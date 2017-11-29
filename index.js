@@ -169,7 +169,7 @@ app.post('/webhook', function (req, res) {
       //webhookReply = dialogObject.messages[0].message;
       var options = {
         method: 'POST',
-        uri: 'http://hope.westus.cloudapp.azure.com:8585/v1/userDataInOutRequest',
+        uri: 'http://hope.westus.cloudapp.azure.com:8585/v1/initiateConversation',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
