@@ -170,6 +170,10 @@ app.post('/webhook', function (req, res) {
       var options = {
         method: 'POST',
         uri: 'http://hope.westus.cloudapp.azure.com:8585:8585/v1/userDataInOutRequest',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: {
           userToken: "ABwppHFa4wfa31rzy1ONC2ULZ7XkJN1taFEIdK7HWUseka21l2WdVOHG7GwQqnq4mMhbajvm0bQ921sIKDY",
           language: "en",
