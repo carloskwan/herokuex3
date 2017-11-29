@@ -269,10 +269,10 @@ app.post('/webhook', function (req, res) {
         },
         json: true // Automatically parses the JSON string in the response
       };
-      console.log(options.body);
+      //console.log(options.body);
       rp(options)
         .then(function (object) {
-
+          console.log("si pasa");
           webhookReply = dialogs.dialogs.messages[2].message;
           res.status(200).json({
             source: 'webhook',
