@@ -189,7 +189,7 @@ app.post('/webhook', function (req, res) {
       console.log(parameters['telephone']);
 
       //webhookReply = dialogObject.messages[2].message;//dialogs.messages[0].message;
-      webhookReply = dialogs.dialogs.messages[0].message;
+      webhookReply = dialogs.dialogs.messages[2].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
