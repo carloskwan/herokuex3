@@ -185,7 +185,7 @@ app.post('/webhook', function (req, res) {
             }
 
         }//,
-        //json: true // Automatically parses the JSON string in the response
+        json: true // Automatically parses the JSON string in the response
       };
       console.log(options.body);
       rp(options)
