@@ -7,7 +7,7 @@ const rp = require('request-promise');
 app.use(bodyParser.json())
 app.set('port', (process.env.PORT || 5000))
 
-const dialogs= require('./dialogs')
+const dialogs = require('./dialogs')
 
 const REQUIRE_AUTH = true
 const AUTH_TOKEN = 'an-example-token'
@@ -15,6 +15,7 @@ const AUTH_TOKEN = 'an-example-token'
 let dialogObject;
 let givenName;
 let lastName;
+let conversationSessionID;
 
 
 app.get('/', function (req, res) {
@@ -60,19 +61,19 @@ app.post('/webhook', function (req, res) {
     // The default welcome intent has been matched, welcome the user (https://dialogflow.com/docs/events#default_welcome_intent)
 
     'input.welcome': () => {
-      
+
       var options = {
         uri: 'http://hope.westus.cloudapp.azure.com:8585/v1/userRegistration',
         headers: {
           'Accept': 'application/json'
-      }
+        }
         //json: true // Automatically parses the JSON string in the response
       };
       rp(options)
         .then(function (object) {
-          
+
           //dialogObject=JSON.parse(object);
-          dialogObject=JSON.parse(object);
+          dialogObject = JSON.parse(object);
           //console.log(dialogObject);
           webhookReply = "Welcome to NeuHope"
           res.status(200).json({
@@ -90,11 +91,11 @@ app.post('/webhook', function (req, res) {
             ],
             "source": "webhook"
             */
-            
+
             source: 'webhook',
             speech: webhookReply,
             displayText: webhookReply
-            
+
             /*
             "messages": [
               {
@@ -112,16 +113,16 @@ app.post('/webhook', function (req, res) {
             ]
             */
           })
-          
-          
+
+
         })
         .catch(function (err) {
           // API call failed...
         });
-        
-        
-        
-      
+
+
+
+
     },
     // The default fallback intent has been matched, try to recover (https://dialogflow.com/docs/intents#fallback_intents)
     'input.unknown': () => {
@@ -148,8 +149,8 @@ app.post('/webhook', function (req, res) {
       };
       rp(options)
         .then(function (repos) {
-          console.log(repos.status);
-          phrase = 'This comes from an external API: '+ repos.status;
+          //console.log(repos.status);
+          phrase = 'This comes from an external API: ' + repos.status;
           webhookReply = phrase;
           res.status(200).json({
             source: 'webhook',
@@ -164,18 +165,57 @@ app.post('/webhook', function (req, res) {
     'registerUser': () => {
       //dialogObject=dialogs;
       //webhookReply = dialogObject.messages[2].message;//dialogs.messages[0].message;
-      
-      //webhookReply = dialogObject.messages[0].message;
 
+      //webhookReply = dialogObject.messages[0].message;
+      var options = {
+        method: 'POST',
+        uri: 'http://localhost:8585/v1/userDataInOutRequest',
+        body: {
+          userToken: "ABwppHFa4wfa31rzy1ONC2ULZ7XkJN1taFEIdK7HWUseka21l2WdVOHG7GwQqnq4mMhbajvm0bQ921sIKDY",
+          language: "en",
+          userData: {
+            attributes: [
+            ]
+          }
+
+        },
+        json: true // Automatically parses the JSON string in the response
+      };
+      rp(options)
+        .then(function (object) {
+          //console.log(repos.status);
+          //phrase = 'This comes from an external API: ' + repos.status;
+          /* webhookReply = phrase;
+          res.status(200).json({
+            source: 'webhook',
+            speech: webhookReply,
+            displayText: webhookReply
+          }) */
+          let answer = JSON.parse(object);
+          conversationSessionID=answer.conversationSessionID;
+          console.log(conversationSessionID);
+          webhookReply = dialogs.dialogs.messages[0].message;
+          res.status(200).json({
+            source: 'webhook',
+            speech: webhookReply,
+            displayText: webhookReply
+          })
+        })
+        .catch(function (err) {
+          // API call failed...
+        });
+
+        /*
       webhookReply = dialogs.dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
         displayText: webhookReply
       })
+      */
     },
     'userType': () => {
-  
+
       //webhookReply = dialogObject.messages[1].message;//dialogs.messages[0].message;
       webhookReply = dialogs.dialogs.messages[1].message;
       res.status(200).json({
@@ -217,8 +257,8 @@ app.post('/webhook', function (req, res) {
     'lastName': () => {
       lastName = parameters['last-name'];
       webhookReply = dialogObject.messages[5].message;
-      webhookReply = webhookReply.replace("$userFirstName",givenName);
-      webhookReply = webhookReply.replace("$userLastName",lastName);
+      webhookReply = webhookReply.replace("$userFirstName", givenName);
+      webhookReply = webhookReply.replace("$userLastName", lastName);
 
 
 
@@ -233,8 +273,8 @@ app.post('/webhook', function (req, res) {
       */
 
       let webhookReply2 = dialogObject.messages[6].message;
-      webhookReply2 = webhookReply2.replace("$userFirstName",givenName);
-      webhookReply2 = webhookReply2.replace("$userLastName",lastName);
+      webhookReply2 = webhookReply2.replace("$userFirstName", givenName);
+      webhookReply2 = webhookReply2.replace("$userLastName", lastName);
       res.status(200).json({
         "messages": [
           {
@@ -252,7 +292,7 @@ app.post('/webhook', function (req, res) {
         ]
       })
 
-      
+
 
 
     }
