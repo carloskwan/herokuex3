@@ -331,8 +331,13 @@ app.post('/webhook', function (req, res) {
       //console.log(options.body);
       rp(options)
         .then(function (object) {
-          console.log("si pasa");
-          webhookReply = dialogs.dialogs.messages[3].message;
+          if (response.statusCode === 200) {
+            webhookReply = dialogs.dialogs.messages[3].message;
+            
+          }else{
+            webhookReply = "Invalid code"
+          }
+
           res.status(200).json({
             source: 'webhook',
             speech: webhookReply,
@@ -356,7 +361,7 @@ app.post('/webhook', function (req, res) {
     'lastName': () => {
       lastName = parameters['last-name'];
       //webhookReply = dialogObject.messages[5].message;
-      webhookReply = dialogs.dialogs.messages[3].message;
+      webhookReply = dialogs.dialogs.messages[5].message;
       webhookReply = webhookReply.replace("$userFirstName", givenName);
       webhookReply = webhookReply.replace("$userLastName", lastName);
 
