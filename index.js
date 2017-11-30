@@ -294,17 +294,59 @@ app.post('/webhook', function (req, res) {
     },
     'validationCode': () => {
       //webhookReply = dialogObject.messages[1].message+" "+
-      
+      /*
       webhookReply = dialogObject.messages[3].message;//dialogs.messages[0].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
         displayText: webhookReply
       })
+      */
+
+      var options = {
+        method: 'POST',
+        uri: 'http://hope.westus.cloudapp.azure.com:8585/v1/userDataInOutRequest',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: {
+          "conversationSessionID": conversationSessionID,
+          "userStageName": "User Registration",
+          "userStateName": "User Validation Code Received",
+          "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+          "userData": {
+            "attributes": [{
+              "name": "userType",
+              "value": userType
+            }, {
+              "name": "userEnteredValidationCode",
+              "value": parameters['validationCode'].toString()
+            }]
+          }
+
+        },
+        json: true // Automatically parses the JSON string in the response
+      };
+      //console.log(options.body);
+      rp(options)
+        .then(function (object) {
+          console.log("si pasa");
+          webhookReply = dialogs.dialogs.messages[3].message;
+          res.status(200).json({
+            source: 'webhook',
+            speech: webhookReply,
+            displayText: webhookReply
+          })
+        })
+        .catch(function (err) {
+          // API call failed...
+        });
     },
     'userName': () => {
       givenName = parameters['given-name'];
-      webhookReply = dialogObject.messages[4].message;//dialogs.messages[0].message;
+      //webhookReply = dialogObject.messages[4].message;//dialogs.messages[0].message;
+      webhookReply = dialogs.dialogs.messages[4].message;
       res.status(200).json({
         source: 'webhook',
         speech: webhookReply,
@@ -313,7 +355,8 @@ app.post('/webhook', function (req, res) {
     },
     'lastName': () => {
       lastName = parameters['last-name'];
-      webhookReply = dialogObject.messages[5].message;
+      //webhookReply = dialogObject.messages[5].message;
+      webhookReply = dialogs.dialogs.messages[3].message;
       webhookReply = webhookReply.replace("$userFirstName", givenName);
       webhookReply = webhookReply.replace("$userLastName", lastName);
 
