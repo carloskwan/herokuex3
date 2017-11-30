@@ -331,6 +331,8 @@ app.post('/webhook', function (req, res) {
       //console.log(options.body);
       rp(options)
         .then(function (object) {
+          console.log(parameters['validationCode'].toString())
+          console.log(object.statusCode)
           if (object.statusCode === 200) {
             webhookReply = dialogs.dialogs.messages[3].message;
             
