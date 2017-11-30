@@ -331,7 +331,7 @@ app.post('/webhook', function (req, res) {
       //console.log(options.body);
       rp(options)
         .then(function (object) {
-          if (response.statusCode === 200) {
+          if (object.statusCode === 200) {
             webhookReply = dialogs.dialogs.messages[3].message;
             
           }else{
