@@ -17,6 +17,7 @@ let givenName;
 let lastName;
 let conversationSessionID;
 let userType;
+let mobileNumber = "+5219991189386";
 
 
 app.get('/', function (req, res) {
@@ -78,41 +79,9 @@ app.post('/webhook', function (req, res) {
           //console.log(dialogObject);
           webhookReply = "Welcome to NeuHope"
           res.status(200).json({
-            /*
-            "speech": "",
-            "messages": [
-            {
-            "type": 0,
-            "speech": "webhookReply"
-            },
-            {
-            "type": 0,
-            "speech": "What can I do for you?"
-            }
-            ],
-            "source": "webhook"
-            */
-
             source: 'webhook',
             speech: webhookReply,
             displayText: webhookReply
-
-            /*
-            "messages": [
-              {
-                "displayText": "Text response",
-                "platform": "google",
-                "textToSpeech": "Audio response",
-                "type": "simple_response"
-              },
-              {
-                "displayText": "Text response 2",
-                "platform": "google",
-                "textToSpeech": "Audio response 2",
-                "type": "simple_response"
-              },
-            ]
-            */
           })
 
 
@@ -261,7 +230,7 @@ app.post('/webhook', function (req, res) {
               },
               {
                 "name": "userMobileNumber",
-                "value": "+5219991189386"
+                "value": mobileNumber
               }
             ]
           }
@@ -336,8 +305,8 @@ app.post('/webhook', function (req, res) {
           console.log(object.statusCode)
           if (object.statusCode === 200) {
             webhookReply = dialogs.dialogs.messages[3].message;
-            
-          }else{
+
+          } else {
             webhookReply = "Invalid code"
           }
 
@@ -362,46 +331,95 @@ app.post('/webhook', function (req, res) {
       })
     },
     'lastName': () => {
+
       lastName = parameters['last-name'];
       //webhookReply = dialogObject.messages[5].message;
       webhookReply = dialogs.dialogs.messages[5].message;
       webhookReply = webhookReply.replace("$userFirstName", givenName);
       webhookReply = webhookReply.replace("$userLastName", lastName);
 
-
-
-      //webhookReply = "under construction";//dialogs.messages[0].message;
-      /*
-      res.status(200).json({
-        
-        source: 'webhook',
-        speech: webhookReply,
-        displayText: webhookReply
-      })
-      */
-
       let webhookReply2 = dialogObject.messages[6].message;
       webhookReply2 = webhookReply2.replace("$userFirstName", givenName);
       webhookReply2 = webhookReply2.replace("$userLastName", lastName);
-      res.status(200).json({
-        "messages": [
-          {
-            "displayText": webhookReply,
-            "platform": "google",
-            "textToSpeech": webhookReply,
-            "type": "simple_response"
-          },
-          {
-            "displayText": webhookReply2,
-            "platform": "google",
-            "textToSpeech": webhookReply2,
-            "type": "simple_response"
-          },
-        ]
-      })
 
+      var options = {
+        method: 'POST',
+        uri: 'http://hope.westus.cloudapp.azure.com:8585/v1/userDataInOutRequest',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: {
+          "conversationSessionID": conversationSessionID,
+          "userStateName": "User Registration Data Received",
+          "requestSource": "HOPE_SCREEN_BASED_CONVERSATION",
+          "userData": {
 
+            "attributes": [{
+              "name": "userType",
+              "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+              "value": userType,
+              "type": "STRING"
+            }, {
+              "name": "userMobileNumber",
+              "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+              "value": mobileNumber,
+              "type": "STRING"
+            }, {
+              "name": "userFirstName",
+              "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+              "value": givenName,
+              "type": "STRING"
+            }, {
+              "name": "userLastName",
+              "valueProcessingHint": "DYNAMIC_VALUE_READ_FROM_VARIABLE",
+              "value": lastName,
+              "type": "STRING"
+            }]
+          }
 
+        },
+        json: true, // Automatically parses the JSON string in the response
+        resolveWithFullResponse: true
+      };
+      //console.log(options.body);
+      rp(options)
+        .then(function (object) {
+          console.log(object.statusCode)
+          if (object.statusCode === 200) {
+            //webhookReply = dialogs.dialogs.messages[3].message;
+            res.status(200).json({
+              "messages": [
+                {
+                  "displayText": webhookReply,
+                  "platform": "google",
+                  "textToSpeech": webhookReply,
+                  "type": "simple_response"
+                },
+                {
+                  "displayText": webhookReply2,
+                  "platform": "google",
+                  "textToSpeech": webhookReply2,
+                  "type": "simple_response"
+                },
+              ]
+            })
+
+          } else {
+            webhookReply = "There has been a problem saving the user"
+            res.status(200).json({
+              source: 'webhook',
+              speech: webhookReply,
+              displayText: webhookReply
+            })
+
+          }
+
+         
+        })
+        .catch(function (err) {
+          // API call failed...
+        });
 
     }
   };
