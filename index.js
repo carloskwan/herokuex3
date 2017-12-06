@@ -15,7 +15,7 @@ const AUTH_TOKEN = 'an-example-token'
 let dialogObject;
 let givenName;
 let lastName;
-let conversationSessionID;
+let conversationSessionID = "ABwppHFa4wfa31rzy1ONC2ULZ7XkJN1taFEIdK7HWUseka21l2WdVOHG7GwQqnq4mMhbajvm0bQ921sIKDY";
 let userType;
 let mobileNumber = "+5219991189386";
 
@@ -343,6 +343,12 @@ app.post('/webhook', function (req, res) {
       let webhookReply2 = dialogs.dialogs.messages[6].message;
       webhookReply2 = webhookReply2.replace("$userFirstName", givenName);
       webhookReply2 = webhookReply2.replace("$userLastName", lastName);
+
+      console.log(conversationSessionID);
+      console.log(userType);
+      console.log(mobileNumber);
+      console.log(givenName);
+      console.log(lastName);
 
       var options = {
         method: 'POST',
