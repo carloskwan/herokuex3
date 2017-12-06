@@ -339,7 +339,8 @@ app.post('/webhook', function (req, res) {
       webhookReply = webhookReply.replace("$userFirstName", givenName);
       webhookReply = webhookReply.replace("$userLastName", lastName);
 
-      let webhookReply2 = dialogObject.messages[6].message;
+      //let webhookReply2 = dialogObject.messages[6].message;
+      let webhookReply2 = dialogs.dialogs.messages[6].message;
       webhookReply2 = webhookReply2.replace("$userFirstName", givenName);
       webhookReply2 = webhookReply2.replace("$userLastName", lastName);
 
