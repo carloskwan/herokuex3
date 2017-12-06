@@ -207,7 +207,7 @@ app.post('/webhook', function (req, res) {
     'phoneNumber': () => {
       //webhookReply = dialogObject.messages[4].message
       console.log(parameters['telephone']);
-      mobileNumber=req.body.result.resolvedQuery;
+      //mobileNumber=req.body.result.resolvedQuery;
 
 
       var options = {
