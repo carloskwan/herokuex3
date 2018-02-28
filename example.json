@@ -1,0 +1,113 @@
+	
+              Request body: {
+        "originalRequest": {
+            "source": "google",
+            "version": "2",
+            "data": {
+                "isInSandbox": true,
+                "surface": {
+                    "capabilities": [
+                        {
+                            "name": "actions.capability.AUDIO_OUTPUT"
+                        },
+                        {
+                            "name": "actions.capability.SCREEN_OUTPUT"
+                        }
+                    ]
+                },
+                "inputs": [
+                    {
+                        "rawInputs": [
+                            {
+                                "query": "Talk to my test app",
+                                "inputType": "KEYBOARD"
+                            }
+                        ],
+                        "intent": "actions.intent.MAIN"
+                    }
+                ],
+                "user": {
+                    "lastSeen": "2017-11-09T20:35:05Z",
+                    "locale": "en-US",
+                    "userId": "ABwppHG5R_Brdx7IugUIAMTjFPusOgT1brCLnPmUQr_h32S0IsMn3csyfazLuejqQF_AaprprB3NJw"
+                },
+                "conversation": {
+                    "conversationId": "1510761838758",
+                    "type": "NEW"
+                },
+                "availableSurfaces": [
+                    {
+                        "capabilities": [
+                            {
+                                "name": "actions.capability.AUDIO_OUTPUT"
+                            },
+                            {
+                                "name": "actions.capability.SCREEN_OUTPUT"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "id": "d00cfa76-278b-46bc-8ae2-8699f756b386",
+        "timestamp": "2017-11-15T16:03:58.866Z",
+        "lang": "en-us",
+        "result": {
+            "source": "agent",
+            "resolvedQuery": "GOOGLE_ASSISTANT_WELCOME",
+            "speech": "",
+            "action": "input.welcome",
+            "actionIncomplete": false,
+            "parameters": {},
+            "contexts": [
+                {
+                    "name": "google_assistant_welcome",
+                    "parameters": {},
+                    "lifespan": 0
+                },
+                {
+                    "name": "actions_capability_screen_output",
+                    "parameters": {},
+                    "lifespan": 0
+                },
+                {
+                    "name": "actions_capability_audio_output",
+                    "parameters": {},
+                    "lifespan": 0
+                },
+                {
+                    "name": "google_assistant_input_type_keyboard",
+                    "parameters": {},
+                    "lifespan": 0
+                }
+            ],
+            "metadata": {
+                "intentId": "28808bb8-6c6a-4443-b7cb-fcbbe1416d1b",
+                "webhookUsed": "true",
+                "webhookForSlotFillingUsed": "false",
+                "nluResponseTime": 0,
+                "intentName": "Default Welcome Intent"
+            },
+            "fulfillment": {
+                "speech": "Hello",
+                "messages": [
+                    {
+                        "type": "simple_response",
+                        "platform": "google",
+                        "textToSpeech": "Hello"
+                    },
+                    {
+                        "type": 0,
+                        "speech": "Hello"
+                    }
+                ]
+            },
+            "score": 1
+        },
+        "status": {
+            "code": 200,
+            "errorType": "success",
+            "webhookTimedOut": false
+        },
+        "sessionId": "1510761838758"
+    }
